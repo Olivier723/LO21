@@ -5,4 +5,7 @@ else
 endif
 
 $(EXECUTABLE): src/*.c include/*.h
-	gcc src/*.c -o $(EXECUTABLE) -lm
+	gcc src/*.c -o build/$(EXECUTABLE) -lm
+
+clean:
+	rm build/*
