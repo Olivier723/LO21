@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 void swap(Individual** list,int a, int b){
-    int temp = list[a];
+    Individual* temp = list[a];
     list[a] = list[b];
     list[b] = temp;
 }

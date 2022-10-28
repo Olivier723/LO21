@@ -21,8 +21,8 @@ void initBitListRecursive(LinkedList* bitList, int longIndiv){
 int bitsToInt(LinkedList* bitList){
     int result = 0;
     for(int i = 0; i < bitList->listLength; i++){
-        int currentBit = LinkedList_Get(bitList,i);
-        if(currentBit)  result += pow(2,bitList->listLength - i);
+        int* currentBit = LinkedList_Get(bitList,i);
+        if(*currentBit)  result += pow(2,bitList->listLength - i);
     }
     return result;
 }
@@ -31,9 +31,9 @@ void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise){
     if (bitList1->listLength != bitList2->listLength) return;
     int probability = floor(pCroise * 100);
     for(int i = 0; i < bitList1->listLength; i++){
-        int random = randf()%101;
+        int random = rand()%101;
         if(random <= pCroise){
-            Bit temp = *((Bit*)LinkedList_Get(bitList1, i));
+            Bit* temp = (Bit*)LinkedList_Get(bitList1, i);
             LinkedList_Remove(bitList1, i);
             LinkedList_Insert(bitList1, LinkedList_Get(bitList2, i), i);
             LinkedList_Remove(bitList2, i);

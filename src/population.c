@@ -1,5 +1,6 @@
 #include "../include/population.h"
 #include "../include/quicksort.h"
+#include <stdlib.h>
 
 Population* selectBestOfPopulation(Population* population, int tSelect){
     Individual** tempList = malloc(sizeof(Individual*)*tSelect);

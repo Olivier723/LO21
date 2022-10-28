@@ -3,6 +3,6 @@
 
 #include "individual.h"
 
-int* quickSort(Individual** ,int ,int);
+Individual** quickSort(Individual** ,int ,int);
 
 #endif
