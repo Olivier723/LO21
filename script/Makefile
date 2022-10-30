@@ -5,7 +5,7 @@ else
 endif
 
 $(EXECUTABLE): ../src/*.c ../include/*.h
-	gcc ../src/*.c -o ../build/$(EXECUTABLE) -lm
+	gcc ../src/*.c -o ../build/$(EXECUTABLE) -lm -W -Wall -Wextra
 
 clean:
 	rm ../build/*
