@@ -18,5 +18,6 @@ void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise);
 
 Individual* initIndividual(int longIndiv);
 double getIndividualQuality(Individual* individual);
+void freeIndividual(Individual* individual);
 
 #endif

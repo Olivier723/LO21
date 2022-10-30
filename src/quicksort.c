@@ -1,5 +1,6 @@
 #include "../include/quicksort.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void swap(Individual** list,int a, int b){
     Individual* temp = list[a];
@@ -8,7 +9,7 @@ void swap(Individual** list,int a, int b){
 }
 
 int partition(Individual** list, int start, int end){
-    int pivot = getIndividualQuality(list[end]);
+    double pivot = getIndividualQuality(list[end]);
     int pivotIndex = start;
     for(int i = start; i < end; i++){
         if(getIndividualQuality(list[i]) < pivot){

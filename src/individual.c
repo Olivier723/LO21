@@ -1,7 +1,13 @@
 #include "../include/individual.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <math.h>
 #include <time.h>
+
+void freeIndividual(Individual* individual){
+    LinkedList_Free(individual->bitList);
+    free(individual);
+}
 
 void initBitListIterative(LinkedList* bitList, int longIndiv){
     for(int i = 0; i < longIndiv; i++){
@@ -32,7 +38,7 @@ void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise){
     int probability = floor(pCroise * 100);
     for(int i = 0; i < bitList1->listLength; i++){
         int random = rand()%101;
-        if(random <= pCroise){
+        if(random <= probability){
             Bit* temp = (Bit*)LinkedList_Get(bitList1, i);
             LinkedList_Remove(bitList1, i);
             LinkedList_Insert(bitList1, LinkedList_Get(bitList2, i), i);
@@ -51,7 +57,9 @@ double getIndividualQuality(Individual* individual){
 
 Individual* initIndividual(int longIndiv){
     Individual* individual = malloc(sizeof(Individual));
+    if(!individual) return NULL;
     individual->bitList = createLinkedList();
     individual->longIndiv = longIndiv;
     initBitListRecursive(individual->bitList, longIndiv);
+    return individual;
 }

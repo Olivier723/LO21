@@ -5,8 +5,9 @@
 
 typedef struct Population
 {
-    Individual** Individuals;
-    int populationSize;
+    Individual** individuals;
+    int size;
 } Population;
+Population* initPopulation(int populationSize, int individualSize);
 
 #endif
