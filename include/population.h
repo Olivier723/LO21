@@ -5,7 +5,7 @@
 
 typedef struct Population
 {
-    Individual** individuals;
+    LinkedList* individuals;
     int size;
 } Population;
 Population* initPopulation(int populationSize, int individualSize);

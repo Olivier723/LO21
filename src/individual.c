@@ -51,7 +51,7 @@ void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise){
 double getIndividualQuality(Individual* individual){
     int longIndividual = individual->longIndiv;
     int x = bitsToInt(individual->bitList);
-    double X = (x / 2>>(longIndividual - 1))+1;
+    double X = (x / 2<<(longIndividual - 2))+1;
     return ((-1)*pow(X,2));
 }
 

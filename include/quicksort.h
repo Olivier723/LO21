@@ -3,6 +3,6 @@
 
 #include "individual.h"
 
-Individual** quickSort(Individual** ,int ,int);
+void quickSort(LinkedList* ,int ,int);
 
 #endif

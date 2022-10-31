@@ -40,6 +40,7 @@ void LinkedList_Remove(LinkedList* linkedlist, int index){
     Node* toFree = tempNode->next;
     tempNode->next = tempNode->next->next;
     free(toFree);
+    linkedlist->listLength -= 1;
 }
 
 void LinkedList_Insert(LinkedList* linkedlist,void* piece, int index){
