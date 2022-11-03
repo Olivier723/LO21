@@ -9,9 +9,9 @@ void swap(LinkedList* list,int a, int b){
     Individual* temp = LinkedList_Get(list, a);
     Individual* temp2 = LinkedList_Get(list, b);
     LinkedList_Remove(list, a);
-    LinkedList_Insert(list, temp2, a);
+    LinkedList_Insert(list, temp2, a-1);
     LinkedList_Remove(list, b);
-    LinkedList_Insert(list, temp, b);
+    LinkedList_Insert(list, temp, b-1);
 }
 
 int partition(LinkedList* list, int start, int end){

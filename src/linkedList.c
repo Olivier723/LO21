@@ -49,11 +49,12 @@ void LinkedList_Insert(LinkedList* linkedlist,void* piece, int index){
         newNode->pointer = piece;
         linkedlist->listLength++;
         Node* tempNode = linkedlist->start;
-        for(int i = 0; i < index; i++){
+        for(int i = 0; i < index-1; i++){
             tempNode = tempNode->next;
         }
-        newNode->next = tempNode->next;
+        Node* value = tempNode->next;
         tempNode->next = newNode;
+        newNode->next = value;
     }else if(index == linkedlist->listLength-1){
         LinkedList_Append(linkedlist,piece);
     }
