@@ -4,6 +4,11 @@
 #include <math.h>
 #include <time.h>
 
+void printBit(void* bit){
+    Bit* tempBit = bit;
+    printf("%d", *tempBit);
+}
+
 void freeIndividual(Individual* individual){
     LinkedList_Free(individual->bitList);
     free(individual);
@@ -11,15 +16,17 @@ void freeIndividual(Individual* individual){
 
 void initBitListIterative(LinkedList* bitList, int longIndiv){
     for(int i = 0; i < longIndiv; i++){
-        Bit bit = rand()%2;
-        LinkedList_Append(bitList, &bit);
+        Bit* bit = malloc(sizeof(Bit));
+        *bit = rand()%2;
+        LinkedList_Append(bitList, bit);
     }
 }
 
 void initBitListRecursive(LinkedList* bitList, int longIndiv){
     if(longIndiv != 0){
-        Bit bit = rand()%2;
-        LinkedList_Append(bitList, &bit);
+        Bit* bit = malloc(sizeof(Bit));
+        *bit = rand()%2;
+        LinkedList_Append(bitList, bit);
         initBitListRecursive(bitList, longIndiv-1);
     }
 }
@@ -27,8 +34,8 @@ void initBitListRecursive(LinkedList* bitList, int longIndiv){
 int bitsToInt(LinkedList* bitList){
     int result = 0;
     for(int i = 0; i < bitList->listLength; i++){
-        int* currentBit = LinkedList_Get(bitList,i);
-        if(*currentBit)  result += pow(2,bitList->listLength - i);
+        Bit* currentBit = LinkedList_Get(bitList,i);
+        if(*currentBit == 1)  result += pow(2,bitList->listLength - i -1);
     }
     return result;
 }
@@ -51,7 +58,7 @@ void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise){
 double getIndividualQuality(Individual* individual){
     int longIndividual = individual->longIndiv;
     int x = bitsToInt(individual->bitList);
-    double X = (x / 2<<(longIndividual - 2))+1;
+    double X = x/pow(2,longIndividual)*2 - 1;
     return ((-1)*pow(X,2));
 }
 
@@ -60,6 +67,8 @@ Individual* initIndividual(int longIndiv){
     if(!individual) return NULL;
     individual->bitList = createLinkedList();
     individual->longIndiv = longIndiv;
-    initBitListRecursive(individual->bitList, longIndiv);
+    initBitListIterative(individual->bitList, longIndiv);
+    LinkedList_Print(individual->bitList, printBit);
+    printf("value : %f\n", getIndividualQuality(individual));
     return individual;
 }

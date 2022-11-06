@@ -52,6 +52,6 @@ Population* initPopulation(int populationSize, int individualSize){
         LinkedList_Append(population->individuals, new_individual);
     }
     quickSort(population->individuals,0,populationSize-1);
-    printf("Bruh");
+    // printf("Bruh");
     return population;
 }
