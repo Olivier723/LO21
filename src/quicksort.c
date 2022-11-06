@@ -31,7 +31,7 @@ int partition(LinkedList* list, int start, int end){
 
 void quickSort(LinkedList* list, int start, int end){
     if(start >= end) return ;
-    // printf("%i,%i\n",start,end);
+    printf("%i,%i\n",start,end);
     int index = partition(list,start,end);
     quickSort(list,start,index-1);
     quickSort(list,index+1,end);

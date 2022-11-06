@@ -9,6 +9,11 @@ void printBit(void* bit){
     printf("%d", *tempBit);
 }
 
+void printIndividual(Individual* individual){
+    LinkedList_Print(individual->bitList, printBit);
+    printf("value : %f\n", getIndividualQuality(individual));
+}
+
 void freeIndividual(Individual* individual){
     LinkedList_Free(individual->bitList);
     free(individual);
@@ -68,7 +73,5 @@ Individual* initIndividual(int longIndiv){
     individual->bitList = createLinkedList();
     individual->longIndiv = longIndiv;
     initBitListIterative(individual->bitList, longIndiv);
-    LinkedList_Print(individual->bitList, printBit);
-    printf("value : %f\n", getIndividualQuality(individual));
     return individual;
 }
