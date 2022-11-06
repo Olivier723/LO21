@@ -18,7 +18,7 @@ struct LinkedList
 {
     Node *start;
     Node *end;
-    int listLength;
+    size_t listLength;
 };
 
 void LinkedList_Print(LinkedList*, void (*printFunc)(void*));
