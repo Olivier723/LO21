@@ -24,10 +24,10 @@ struct LinkedList
 void LinkedList_Print(LinkedList*, void (*printFunc)(void*));
 int LinkedList_isEmpty(LinkedList*);
 void LinkedList_Free(LinkedList*);
-void LinkedList_Remove(LinkedList*, int);
-void LinkedList_Insert(LinkedList*,void*,int);
+void LinkedList_Remove(LinkedList*, size_t);
+void LinkedList_Insert(LinkedList*,void*,size_t);
 void LinkedList_Append(LinkedList*,void*);
-void* LinkedList_Get(LinkedList*,int);
+void* LinkedList_Get(LinkedList*,size_t);
 LinkedList* createLinkedList();
 
 #endif
