@@ -7,17 +7,19 @@ typedef unsigned char Bit;
 
 typedef struct Individual
 {
-    LinkedList* bitList;
+    LinkedList *bitList;
     int longIndiv;
 } Individual;
 
 /*
 @param pCroise a probabilty between 0 and 1
 */
-void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise);
+void swapBitLists(LinkedList *bitList1, LinkedList *bitList2, double pCroise);
 
-Individual* initIndividual(int longIndiv);
-double getIndividualQuality(Individual* individual);
-void freeIndividual(Individual* individual);
+Individual *initIndividual(int longIndiv);
+double getIndividualQuality(Individual *individual);
+void freeIndividual(Individual *individual);
+
+void printBit(void *bit);
 
 #endif
