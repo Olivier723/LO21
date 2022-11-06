@@ -2,9 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void LinkedList_SwapNodes(LinkedList* linkedlist, size_t pos1, size_t pos2){
-    if(pos1 >= linkedlist->listLength || pos2 >= linkedlist->listLength) return;
-    if(pos1 == pos2) return;
+void LinkedList_SwapNodes(LinkedList* linkedlist, unsigned long nodePos1, unsigned long nodePos2){
+    if(nodePos1 >= linkedlist->listLength || nodePos2 >= linkedlist->listLength) return;
+    if(nodePos1 == nodePos2) return;
+    Node* node1 = linkedlist->start;
+    for(int i = 0; i < nodePos1; i++) node1 = node1->next;
+    Node* node2 = linkedlist->start;
+    for(int i = 0; i < nodePos2; i++) node2 = node2->next;
+    Node* temp = node1->next;
+    node1->next = node2->next;
+    node2->next = temp;
 }
 
 void LinkedList_Print(LinkedList* linkedlist, void (*printFunc)(void*)){
@@ -36,7 +43,7 @@ void LinkedList_Free(LinkedList* linkedlist){
     free(tempList);
 }
 
-void LinkedList_Remove(LinkedList* linkedlist, size_t index){
+void LinkedList_Remove(LinkedList* linkedlist, unsigned long index){
     if(index >= linkedlist->listLength) return;
     Node* currentNode = linkedlist->start;
     for(int i = 0; i < index-1; i++){
@@ -48,7 +55,7 @@ void LinkedList_Remove(LinkedList* linkedlist, size_t index){
     linkedlist->listLength--;
 }
 
-void LinkedList_Insert(LinkedList* linkedlist, void* piece, size_t index){
+void LinkedList_Insert(LinkedList* linkedlist, void* piece, unsigned long index){
     if(index < linkedlist->listLength-1){
         Node* newNode = malloc(sizeof(Node));
         newNode->pointer = piece;
@@ -79,7 +86,7 @@ void LinkedList_Append(LinkedList *linkedlist, void* piece){
     linkedlist->end = newNode;
 }
 
-void* LinkedList_Get(LinkedList *linkedlist, size_t index){
+void* LinkedList_Get(LinkedList *linkedlist, unsigned long index){
     if (index >= linkedlist->listLength) return NULL;
     if (index == linkedlist->listLength - 1)
     {

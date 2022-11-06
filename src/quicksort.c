@@ -20,7 +20,7 @@ int partition(LinkedList* list, int start, int end){
         Individual* tempIndiv = LinkedList_Get(list, i);
         // printf("%f\n", getIndividualQuality(tempIndiv));
         if(getIndividualQuality(tempIndiv) < pivot){
-            swap(list, i, pivotIndex);
+            LinkedList_SwapNodes(list, i, pivotIndex);
             // printf("Done\n");
             pivotIndex++;
         }

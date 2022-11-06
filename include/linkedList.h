@@ -1,6 +1,5 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-
 /*
 *The linked list with void pointer so that the list
 *can take any type without rewriting the whole code each time
@@ -18,16 +17,17 @@ struct LinkedList
 {
     Node *start;
     Node *end;
-    size_t listLength;
+    unsigned long listLength;
 };
 
-void LinkedList_Print(LinkedList*, void (*printFunc)(void*));
-int LinkedList_isEmpty(LinkedList*);
-void LinkedList_Free(LinkedList*);
-void LinkedList_Remove(LinkedList*, size_t);
-void LinkedList_Insert(LinkedList*,void*,size_t);
-void LinkedList_Append(LinkedList*,void*);
-void* LinkedList_Get(LinkedList*,size_t);
+void LinkedList_SwapNodes(LinkedList* linkedlist, unsigned long nodePos1, unsigned long nodePos2);
+void LinkedList_Print(LinkedList* linkedlist, void (*printFunc)(void*));
+int LinkedList_isEmpty(LinkedList* linkedlist);
+void LinkedList_Free(LinkedList* linkedlist);
+void LinkedList_Remove(LinkedList* linkedlist, unsigned long index);
+void LinkedList_Insert(LinkedList* linkedlist, void* item,unsigned long index);
+void LinkedList_Append(LinkedList* linkedlist, void* item);
+void* LinkedList_Get(LinkedList* linkedlist, unsigned long index);
 LinkedList* createLinkedList();
 
 #endif
