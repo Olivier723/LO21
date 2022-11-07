@@ -1,6 +1,9 @@
 # LO21
 Projet de LO21
 
+## TODO(s) : 
+- Fix a bug with insert and remove functions
+- Finish the project :'(
 ### Lets go
         C is the best
           language
