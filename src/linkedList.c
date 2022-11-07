@@ -5,8 +5,8 @@
 Node* LinkedList_GetNode(LinkedList* linkedlist, unsigned long nodePos){
     if(LinkedList_isEmpty(linkedlist) || nodePos >= linkedlist->listLength)
         return NULL;
-    Node* node = linkedlist->listLength;
-    for(int i = 0; i < nodePos; i++) node = node->next;
+    Node* node = linkedlist->start;
+    for(unsigned long i = 0; i < nodePos; i++) node = node->next;
     return node;
 }
 
@@ -19,7 +19,6 @@ void LinkedList_SwapNodes(LinkedList* linkedlist, unsigned long pos1, unsigned l
 
     if(pos1 > pos2)
         LinkedList_SwapNodes(linkedlist, pos2, pos1);
-        return;
 
     if(pos1 == 0){
         Node* node1 = linkedlist->start;
@@ -95,17 +94,13 @@ void LinkedList_Remove(LinkedList *linkedlist, unsigned long index)
     {
         toFree = linkedlist->start;
         linkedlist->start = toFree->next;
+        free(toFree);
+        linkedlist->listLength--;
+        return;
     }
-    else
-    {
-        Node *currentNode = linkedlist->start;
-        for (int i = 0; i < index - 1; i++)
-        {
-            currentNode = currentNode->next;
-        }
-        toFree = currentNode->next;
-        currentNode->next = currentNode->next->next;
-    }
+    Node *currentNode = LinkedList_GetNode(linkedlist, index-1);
+    toFree = currentNode->next;
+    currentNode->next = currentNode->next->next;
     free(toFree);
     linkedlist->listLength--;
 }
@@ -114,6 +109,10 @@ void LinkedList_Insert(LinkedList *linkedlist, void *item, unsigned long index)
 {
     if (index > linkedlist->listLength)
         return;
+    if (linkedlist->listLength-1 == index){
+        LinkedList_Append(linkedlist, item);
+        return;
+    }
     Node *newNode = malloc(sizeof(Node));
     newNode->pointer = item;
     linkedlist->listLength++;
@@ -123,24 +122,19 @@ void LinkedList_Insert(LinkedList *linkedlist, void *item, unsigned long index)
         tempNode = linkedlist->start;
         linkedlist->start = newNode;
         newNode->next = tempNode;
+        return;
     }
-    else
-    {
-        Node *currentNode = linkedlist->start;
-        for (int i = 0; i < index - 1; i++)
-        {
-            currentNode = currentNode->next;
-        }
-        tempNode = currentNode->next;
-        currentNode->next = newNode;
-        newNode->next = tempNode;
-    }
+    Node *currentNode = LinkedList_GetNode(linkedlist, index-1);
+    tempNode = currentNode->next;
+    currentNode->next = newNode;
+    newNode->next = tempNode;
 }
 
 void LinkedList_Append(LinkedList *linkedlist, void *item)
 {
     Node *newNode = malloc(sizeof(Node));
     newNode->pointer = item;
+    newNode->next = NULL;
     linkedlist->listLength++;
     if (LinkedList_isEmpty(linkedlist))
     {
@@ -156,15 +150,7 @@ void *LinkedList_Get(LinkedList *linkedlist, unsigned long index)
 {
     if (index >= linkedlist->listLength)
         return NULL;
-    if (index == linkedlist->listLength - 1)
-    {
-        return linkedlist->end->pointer;
-    }
-    Node *currentNode = linkedlist->start;
-    for (int counter = 0; counter < index; counter++)
-    {
-        currentNode = currentNode->next;
-    }
+    Node *currentNode = LinkedList_GetNode(linkedlist, index);
     return currentNode->pointer;
 }
 
