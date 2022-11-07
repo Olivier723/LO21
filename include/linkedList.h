@@ -20,6 +20,7 @@ struct LinkedList
     unsigned long listLength;
 };
 
+void LinkedList_ChangeNodeValue(LinkedList* linkedlist, void* item, unsigned long index);
 void LinkedList_SwapNodes(LinkedList* linkedlist, unsigned long pos1, unsigned long pos2);
 void LinkedList_Swap(LinkedList *list, unsigned long pos1, unsigned long pos2);
 void LinkedList_Print(LinkedList* linkedlist, void (*printFunc)(void*));

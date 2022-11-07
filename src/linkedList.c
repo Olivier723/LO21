@@ -1,15 +1,30 @@
 #include "../include/linkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "../include/individual.h"
 
 Node* LinkedList_GetNode(LinkedList* linkedlist, unsigned long nodePos){
     if(LinkedList_isEmpty(linkedlist) || nodePos >= linkedlist->listLength)
         return NULL;
     Node* node = linkedlist->start;
-    for(unsigned long i = 0; i < nodePos; i++) node = node->next;
+    for(unsigned long i = 0; i < nodePos; i++) {
+        node = node->next;
+        if(node == NULL) printf("Node NULL in : %d\n", i);
+    }
     return node;
 }
 
+void *LinkedList_Get(LinkedList *linkedlist, unsigned long index)
+{
+    if (index >= linkedlist->listLength)
+        return NULL;
+    Node *currentNode = LinkedList_GetNode(linkedlist, index);
+    if (currentNode == NULL)
+        printf("!!!!!NULL!!!!!\nIndex : %d\nTaille : %d",index,linkedlist->listLength);
+    return currentNode->pointer;
+}
+
+/*DO NOT USE UNTIL FIXED*/
 void LinkedList_SwapNodes(LinkedList* linkedlist, unsigned long pos1, unsigned long pos2){
     if(LinkedList_isEmpty(linkedlist) || pos1 >= linkedlist->listLength || pos2 >= linkedlist->listLength)
         return;
@@ -26,34 +41,38 @@ void LinkedList_SwapNodes(LinkedList* linkedlist, unsigned long pos1, unsigned l
         Node* temp = node2->next;
         node2->next = node1;
         linkedlist->start = temp;
+        return;
     }
-    else{
-        Node* node1 = LinkedList_GetNode(linkedlist, pos1-1);
-        Node* node2 = LinkedList_GetNode(linkedlist, pos2-1); 
-        Node* temp = node1->next;
-        node1->next = node2->next;
-        node2->next = temp;
-    }
+    Node* node1 = LinkedList_GetNode(linkedlist, pos1-1);
+    Node* node2 = LinkedList_GetNode(linkedlist, pos2-1); 
+    Node* temp = node1->next;
+    node1->next = node2->next;
+    node2->next = temp;
 }
 
 void LinkedList_Swap(LinkedList *linkedlist, unsigned long pos1, unsigned long pos2)
 {
     if(LinkedList_isEmpty(linkedlist) || pos1 >= linkedlist->listLength || pos2 >= linkedlist->listLength)
         return;
+    // printf("Get test\n");
     void *temp = LinkedList_Get(linkedlist, pos1);
-    LinkedList_Remove(linkedlist, pos1);
-    LinkedList_Insert(linkedlist, LinkedList_Get(linkedlist, pos2), pos1);
-    LinkedList_Remove(linkedlist, pos2);
-    LinkedList_Insert(linkedlist, temp, pos2);
+    void *temp2 = LinkedList_Get(linkedlist, pos2);
+    // printf("Get pass\n");
+    LinkedList_ChangeNodeValue(linkedlist, temp, pos2);
+    LinkedList_ChangeNodeValue(linkedlist, temp2, pos1);
 }
 
+void LinkedList_ChangeNodeValue(LinkedList* linkedlist, void* item, unsigned long index){
+    Node* tempNode = LinkedList_GetNode(linkedlist, index);
+    tempNode->pointer = item;
+}
 
 void LinkedList_Print(LinkedList *linkedlist, void (*printFunc)(void *))
 {
     if(LinkedList_isEmpty(linkedlist))
         return;
     Node *currentNode = linkedlist->start;
-    for (int i = 0; i < linkedlist->listLength - 1; i++)
+    for (unsigned long i = 0; i < linkedlist->listLength - 1; i++)
     {
         printFunc(currentNode->pointer);
         currentNode = currentNode->next;
@@ -72,12 +91,12 @@ void LinkedList_Free(LinkedList *linkedlist)
 {
     Node **tempList = malloc(sizeof(Node *) * linkedlist->listLength);
     Node *currentNode = linkedlist->start;
-    for (int i = 0; i < linkedlist->listLength; i++)
+    for (unsigned long i = 0; i < linkedlist->listLength; i++)
     {
         tempList[i] = currentNode;
         currentNode = currentNode->next;
     }
-    for (int j = 0; j < linkedlist->listLength; j++)
+    for (unsigned long j = 0; j < linkedlist->listLength; j++)
     {
         free(tempList[j]);
     }
@@ -85,6 +104,7 @@ void LinkedList_Free(LinkedList *linkedlist)
     free(tempList);
 }
 
+/*DO NOT USE UNTIL FIXED*/
 void LinkedList_Remove(LinkedList *linkedlist, unsigned long index)
 {
     if (LinkedList_isEmpty(linkedlist) || index >= linkedlist->listLength)
@@ -105,6 +125,7 @@ void LinkedList_Remove(LinkedList *linkedlist, unsigned long index)
     linkedlist->listLength--;
 }
 
+/*DO NOT USE UNTIL FIXED*/
 void LinkedList_Insert(LinkedList *linkedlist, void *item, unsigned long index)
 {
     if (index > linkedlist->listLength)
@@ -146,17 +167,10 @@ void LinkedList_Append(LinkedList *linkedlist, void *item)
     linkedlist->end = newNode;
 }
 
-void *LinkedList_Get(LinkedList *linkedlist, unsigned long index)
-{
-    if (index >= linkedlist->listLength)
-        return NULL;
-    Node *currentNode = LinkedList_GetNode(linkedlist, index);
-    return currentNode->pointer;
-}
 
 void LinkedList_ToDynamic(LinkedList *linkedList, void **dynamicList)
 {
-    for (int i = 0; i < linkedList->listLength; i++)
+    for (unsigned long i = 0; i < linkedList->listLength; i++)
     {
         dynamicList[i] = LinkedList_Get(linkedList, i);
     }

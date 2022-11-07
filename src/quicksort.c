@@ -2,16 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void swap(LinkedList *list, int a, int b)
-{
-    Individual *temp = LinkedList_Get(list, a);
-    Individual *temp2 = LinkedList_Get(list, b);
-    LinkedList_Remove(list, a);
-    LinkedList_Insert(list, temp2, a);
-    LinkedList_Remove(list, b);
-    LinkedList_Insert(list, temp, b);
-}
-
 int partition(LinkedList *list, int start, int end)
 {
     Individual *pivotIndiv = LinkedList_Get(list, end);
@@ -22,16 +12,21 @@ int partition(LinkedList *list, int start, int end)
         Individual *tempIndiv = LinkedList_Get(list, i);
         if (getIndividualQuality(tempIndiv) < pivot)
         {
-            LinkedList_SwapNodes(list, i, pivotIndex);
+            // printf("Swap1 test\n");
+            LinkedList_Swap(list, i, pivotIndex);
+            // printf("Swap1 pass\n");
             pivotIndex++;
         }
     }
-    LinkedList_SwapNodes(list, pivotIndex, end);
+    // printf("Swap2 test\n");
+    LinkedList_Swap(list, pivotIndex, end);
+    // printf("Swap2 pass\n");
     return pivotIndex;
 }
 
 void quickSort(LinkedList *list, int start, int end)
 {
+    // printf("%i-%i\n", start, end);
     if (start >= end)
         return;
     int index = partition(list, start, end);
