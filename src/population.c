@@ -3,6 +3,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void printPop(Population* pop){
+    for(int i = 0; i < pop->size; i++){
+        printf("Individu %d\nBitlist : ",i);
+        Individual* indiv = LinkedList_Get(pop->individuals,i);
+        printIndividual(indiv);
+        printf("\n");
+    }
+}
+
 void freePopulation(Population* population){
     for(int i = 0; i < population->size; i++){
         Individual* temp_individual = LinkedList_Get(population->individuals, i);
@@ -52,6 +61,5 @@ Population* initPopulation(int populationSize, int individualSize){
         LinkedList_Append(population->individuals, new_individual);
     }
     quickSort(population->individuals,0,populationSize-1);
-    // printf("Bruh");
     return population;
 }

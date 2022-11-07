@@ -20,7 +20,8 @@ struct LinkedList
     unsigned long listLength;
 };
 
-void LinkedList_SwapNodes(LinkedList* linkedlist, unsigned long nodePos1, unsigned long nodePos2);
+void LinkedList_SwapNodes(LinkedList* linkedlist, unsigned long pos1, unsigned long pos2);
+void LinkedList_Swap(LinkedList *list, unsigned long pos1, unsigned long pos2);
 void LinkedList_Print(LinkedList* linkedlist, void (*printFunc)(void*));
 int LinkedList_isEmpty(LinkedList* linkedlist);
 void LinkedList_Free(LinkedList* linkedlist);
