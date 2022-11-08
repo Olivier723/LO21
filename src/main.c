@@ -5,7 +5,7 @@
 
 int main(){
     srand(time(NULL));
-    Population* pop = initPopulation(10,8);
+    Population* pop = initPopulation(10,10);
     if(!pop) return EXIT_FAILURE;
     printPop(pop);
     int nGen = 10;

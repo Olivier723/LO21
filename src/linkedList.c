@@ -9,7 +9,7 @@ Node* LinkedList_GetNode(LinkedList* linkedlist, unsigned long nodePos){
     Node* node = linkedlist->start;
     for(unsigned long i = 0; i < nodePos; i++) {
         node = node->next;
-        if(node == NULL) printf("Node NULL in : %d\n", i);
+        // if(node == NULL) printf("Node NULL in : %d\n", i);
     }
     return node;
 }
@@ -19,8 +19,8 @@ void *LinkedList_Get(LinkedList *linkedlist, unsigned long index)
     if (index >= linkedlist->listLength)
         return NULL;
     Node *currentNode = LinkedList_GetNode(linkedlist, index);
-    if (currentNode == NULL)
-        printf("!!!!!NULL!!!!!\nIndex : %d\nTaille : %d",index,linkedlist->listLength);
+    // if (currentNode == NULL)
+    //     printf("!!!!!NULL!!!!!\nIndex : %d\nTaille : %d",index,linkedlist->listLength);
     return currentNode->pointer;
 }
 
