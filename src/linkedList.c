@@ -34,9 +34,8 @@ void LinkedList_Swap(LinkedList *linkedlist, unsigned long pos1, unsigned long p
 
 void LinkedList_ChangeNodeValue(LinkedList *linkedlist, void *item, unsigned long index) // ✓
 {
+    if(index >= linkedlist->listLength) return;
     Node *tempNode = LinkedList_GetNode(linkedlist, index);
-    if (tempNode == NULL)
-        return;
     tempNode->pointer = item;
 }
 
@@ -60,7 +59,21 @@ int LinkedList_isEmpty(LinkedList *linkedlist) // ✓
     return linkedlist->start == NULL;
 }
 
-void LinkedList_Free(LinkedList *linkedlist)
+void LinkedList_Free(LinkedList *linkedlist, void(*freeElemFunc)(void*))
+{
+    if(LinkedList_isEmpty(linkedlist)){
+        free(linkedlist);
+        return;
+    }
+    for(unsigned long i = linkedlist->listLength - 1; i != 0; i--){
+        Node* tempNode = LinkedList_GetNode(linkedlist, i);
+        freeElemFunc(tempNode->pointer);
+        free(tempNode);
+    }
+    free(linkedlist);
+}
+
+void LinkedList_Free2(LinkedList *linkedlist, void(*freeElemFunc)(void*))
 {
     Node **tempList = malloc(sizeof(Node *) * linkedlist->listLength);
     Node *currentNode = linkedlist->start;
@@ -71,6 +84,7 @@ void LinkedList_Free(LinkedList *linkedlist)
     }
     for (unsigned long j = 0; j < linkedlist->listLength; j++)
     {
+        freeElemFunc(tempList[j]->pointer);
         free(tempList[j]);
     }
     free(linkedlist);

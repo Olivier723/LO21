@@ -44,7 +44,6 @@ int main(){
     printf("Entrez une propabilite de croisement entre individus :\n");
     scanf("%lf", &pCroise);
     askUser(&tSelect, "Entrez le nombre d'individus a garder pour la nouvelle gen : ");
-    printPop(pop);
     FILE* f = fopen("../Population_Records.txt","w");
     for(int i = 0; i < nGen; i++){
         recordPopulationEvolution(f,pop,i);
@@ -53,5 +52,6 @@ int main(){
         selectBestOfPopulation(pop, tSelect);
     }
     fclose(f);
+    freePopulation(pop);
     return EXIT_SUCCESS;
 }

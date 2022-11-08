@@ -13,11 +13,7 @@ void printPop(Population* pop){
 }
 
 void freePopulation(Population* population){
-    for(int i = 0; i < population->size; i++){
-        Individual* temp_individual = LinkedList_Get(population->individuals, i);
-        freeIndividual(temp_individual);
-    }
-    free(population->individuals);
+    LinkedList_Free(population->individuals, freeIndividual);
     free(population);
 }
 

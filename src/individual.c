@@ -9,16 +9,21 @@ void printBit(void *bit)
     printf("%d", *tempBit);
 }
 
+
 void printIndividual(Individual *individual)
 {
     LinkedList_Print(individual->bitList, printBit);
     printf("value : %f\n", getIndividualQuality(individual));
 }
 
-void freeIndividual(Individual *individual)
+//Uh Oh there seem to be a problem with bitList
+void freeIndividual(void *individual)
 {
-    LinkedList_Free(individual->bitList);
-    free(individual);
+    Individual* indiv = individual;
+    LinkedList_Print(indiv->bitList, printBit);
+    printf("Hi\n");
+    LinkedList_Free(indiv->bitList,free);
+    free(indiv);
 }
 
 void initBitListIterative(LinkedList *bitList, int longIndiv)
