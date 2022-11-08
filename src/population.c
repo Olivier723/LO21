@@ -28,26 +28,21 @@ void selectBestOfPopulation(Population* population, int tSelect){
     }
     for(int j = 0; j < population->size; j++){
         int k = j % 4;
-        LinkedList_Remove(population->individuals, j);
-        LinkedList_Insert(population->individuals, tempList[k], j);
+        LinkedList_ChangeNodeValue(population->individuals, tempList[k], j);
     }
 }
 
-Population* crossPopulation(Population* population){
-    Population* newPopulation = malloc(sizeof(Population));
-    if (!newPopulation) return NULL;
-    newPopulation->individuals = createLinkedList();
-    newPopulation->size = population->size;
-    for(int i = 0; i < newPopulation->size; i++){
-        int rand1 = rand()%newPopulation->size;
-        int rand2 = rand()%newPopulation->size;
+void crossPopulation(Population* population, double pCroise){
+    for(int i = 0; i < population->size/2; i++){
+        int rand1 = rand()%population->size;
+        int rand2 = rand()%population->size;
         while(rand2 == rand1){
-            rand2 = rand()%newPopulation->size;
+            rand2 = rand()%population->size;
         }
         Individual* indiv1 = LinkedList_Get(population->individuals, rand1);
         Individual* indiv2 = LinkedList_Get(population->individuals, rand2);
+        swapBitLists(indiv1->bitList, indiv2->bitList, pCroise);
     }
-    return newPopulation;
 }
 
 Population* initPopulation(int populationSize, int individualSize){

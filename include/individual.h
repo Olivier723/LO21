@@ -12,12 +12,16 @@ typedef struct Individual
 } Individual;
 
 /*
-@param pCroise a probabilty between 0 and 1
+@param pCroise a probability between 0 and 1
 */
 void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise);
+
 void printIndividual(Individual *individual);
+
 Individual* initIndividual(int longIndiv);
+
 double getIndividualQuality(Individual* individual);
+
 void freeIndividual(Individual* individual);
 
 #endif
