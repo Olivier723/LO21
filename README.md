@@ -1,6 +1,6 @@
 # LO21
 Projet de LO21
-Diagramme des classes UML : https://drive.google.com/file/d/10wvTW6ZEm2-IwnWhkWpEKT9EIQCsbz4Q/view?usp=sharing
+- Diagramme des classes UML : https://drive.google.com/file/d/10wvTW6ZEm2-IwnWhkWpEKT9EIQCsbz4Q/view?usp=sharing
 
 ## TODO(s) : 
 - Fix a bug with insert and remove functions
