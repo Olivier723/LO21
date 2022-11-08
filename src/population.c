@@ -46,7 +46,6 @@ Population* crossPopulation(Population* population){
         }
         Individual* indiv1 = LinkedList_Get(population->individuals, rand1);
         Individual* indiv2 = LinkedList_Get(population->individuals, rand2);
-        
     }
     return newPopulation;
 }
@@ -60,8 +59,5 @@ Population* initPopulation(int populationSize, int individualSize){
         Individual* new_individual = initIndividual(individualSize);
         LinkedList_Append(population->individuals, new_individual);
     }
-    printPop(population);
-    printf("---------------------\n");
-    quickSort(population->individuals,0,populationSize-1);
     return population;
 }
