@@ -73,6 +73,17 @@ void LinkedList_Free(LinkedList *linkedlist, void(*freeElemFunc)(void*))
     free(linkedlist);
 }
 
+void LinkedList_FreeRec(LinkedList* linkedlist, void(*freeElemFunc)(void *), Node* nodeToFree){
+    if(nodeToFree == linkedlist->end){
+        freeElemFunc(nodeToFree->pointer);
+        free(nodeToFree);
+        free(linkedlist);
+    }
+    LinkedList_FreeRec(linkedlist, freeElemFunc, nodeToFree->next);
+    freeElemFunc(nodeToFree->pointer);
+    free(nodeToFree);
+}
+
 void LinkedList_Free2(LinkedList *linkedlist, void(*freeElemFunc)(void*))
 {
     Node **tempList = malloc(sizeof(Node *) * linkedlist->listLength);

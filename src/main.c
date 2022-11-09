@@ -50,6 +50,6 @@ int main(){
         selectBestOfPopulation(pop, tSelect);
     }
     fclose(f);
-    freePopulation(pop);
+    // freePopulation(pop);
     return EXIT_SUCCESS;
 }

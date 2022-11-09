@@ -8,7 +8,7 @@ struct Node
     Node *next;
 };
 
-/*Encapsulates the linked in a single struct with the length to make it more convenient*/
+/*Encapsulates the linked list in a single struct with the length to make it more convenient*/
 typedef struct LinkedList LinkedList;
 struct LinkedList
 {
@@ -34,6 +34,8 @@ int LinkedList_isEmpty(LinkedList* linkedlist);
 void LinkedList_Free(LinkedList* linkedlist, void(*freeElemFunc)(void*));
 
 void LinkedList_Free2(LinkedList *linkedlist, void(*freeElemFunc)(void*));
+
+void LinkedList_FreeRec(LinkedList* linkedlist, void(*freeElemFunc)(void *), Node* linkedlistStartNode);
 
 void LinkedList_Remove(LinkedList* linkedlist, unsigned long index);
 
