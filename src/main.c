@@ -19,10 +19,7 @@ void recordPopulationEvolution(FILE* file, Population* pop, int iteration){
             fprintf(file,"->");
         }
         Bit *tempBit = currentNode->pointer;
-        fprintf(file,"%d", *tempBit);
-        fprintf(file,"\n");
-        fprintf(file,"\tvalue : %file\n", getIndividualQuality(indiv));
-        fprintf(file,"\n");
+        fprintf(file,"%d\n\tvalue : %file\n\n", *tempBit, getIndividualQuality(indiv));
     }
 
 }
@@ -35,10 +32,11 @@ void askUser(int* var, const char* askPhrase){
 
 int main(){
     srand(time(NULL));
-    int tSelect, popSize, indivSize, nGen = 10;
+    int tSelect, popSize, indivSize, nGen;
     double pCroise;
     askUser(&popSize, "Entez une taille pour la population :\n");
     askUser(&indivSize, "Entrez une taille pour les individus :\n");
+    askUser(&nGen, "Entrez le nombre d'iterations de l'algorithme :\n");
     Population* pop = initPopulation(popSize, indivSize);
     assert(pop != NULL);
     printf("Entrez une propabilite de croisement entre individus :\n");

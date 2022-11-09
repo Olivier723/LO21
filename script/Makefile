@@ -7,5 +7,8 @@ endif
 $(EXECUTABLE): ../src/*.c ../include/*.h
 	gcc ../src/*.c -o ../build/$(EXECUTABLE) -lm -W -Wall -Wextra -O3
 
+run:
+	../build/LO21.exe
+
 clean:
 	rm ../build/*
