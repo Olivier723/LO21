@@ -59,32 +59,22 @@ int LinkedList_isEmpty(LinkedList *linkedlist) // ✓
     return linkedlist->start == NULL;
 }
 
-void LinkedList_Free(LinkedList *linkedlist, void(*freeElemFunc)(void*))
-{
-    if(LinkedList_isEmpty(linkedlist)){
-        free(linkedlist);
+void LinkedList_FreeRecNode(void(*freeElemFunc)(void *), Node* nodeToFree){
+    if(nodeToFree == NULL){
         return;
     }
-    for(unsigned long i = linkedlist->listLength - 1; i != 0; i--){
-        Node* tempNode = LinkedList_GetNode(linkedlist, i);
-        freeElemFunc(tempNode->pointer);
-        free(tempNode);
-    }
+    LinkedList_FreeRecNode(freeElemFunc, nodeToFree->next);
+    freeElemFunc(nodeToFree->pointer);
+    free(nodeToFree);
+
+}
+
+void LinkedList_FreeRec(LinkedList* linkedlist, void(*freeElemFunc)(void*)){
+    LinkedList_FreeRecNode(freeElemFunc,linkedlist->start);
     free(linkedlist);
 }
 
-void LinkedList_FreeRec(LinkedList* linkedlist, void(*freeElemFunc)(void *), Node* nodeToFree){
-    if(nodeToFree == linkedlist->end){
-        freeElemFunc(nodeToFree->pointer);
-        free(nodeToFree);
-        free(linkedlist);
-    }
-    LinkedList_FreeRec(linkedlist, freeElemFunc, nodeToFree->next);
-    freeElemFunc(nodeToFree->pointer);
-    free(nodeToFree);
-}
-
-void LinkedList_Free2(LinkedList *linkedlist, void(*freeElemFunc)(void*))
+void LinkedList_Free(LinkedList *linkedlist, void(*freeElemFunc)(void*))
 {
     Node **tempList = malloc(sizeof(Node *) * linkedlist->listLength);
     Node *currentNode = linkedlist->start;

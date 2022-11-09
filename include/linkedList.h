@@ -33,9 +33,7 @@ int LinkedList_isEmpty(LinkedList* linkedlist);
 
 void LinkedList_Free(LinkedList* linkedlist, void(*freeElemFunc)(void*));
 
-void LinkedList_Free2(LinkedList *linkedlist, void(*freeElemFunc)(void*));
-
-void LinkedList_FreeRec(LinkedList* linkedlist, void(*freeElemFunc)(void *), Node* linkedlistStartNode);
+void LinkedList_FreeRec(LinkedList* linkedlist, void(*freeElemFunc)(void *));
 
 void LinkedList_Remove(LinkedList* linkedlist, unsigned long index);
 
