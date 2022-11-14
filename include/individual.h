@@ -8,7 +8,7 @@ typedef unsigned char Bit;
 typedef struct Individual
 {
     LinkedList* bitList;
-    int longIndiv;
+    int size;
 } Individual;
 
 /*
@@ -19,7 +19,7 @@ void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise);
 
 void printIndividual(Individual *individual);
 
-Individual* initIndividual(int longIndiv);
+Individual* initIndividual(short longIndiv);
 
 double getIndividualQuality(Individual* individual);
 

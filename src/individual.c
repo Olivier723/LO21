@@ -9,7 +9,6 @@ void printBit(void *bit)
     printf("%d", *tempBit);
 }
 
-
 void printIndividual(Individual *individual)
 {
     LinkedList_Print(individual->bitList, printBit);
@@ -47,9 +46,9 @@ void initBitListRecursive(LinkedList *bitList, int longIndiv)
     }
 }
 
-int bitsToInt(LinkedList *bitList)
+long bitsToInt(LinkedList *bitList)
 {
-    int result = 0;
+    long result = 0;
     for (unsigned long i = 0; i < bitList->listLength; i++)
     {
         Bit *currentBit = LinkedList_Get(bitList, i);
@@ -59,15 +58,14 @@ int bitsToInt(LinkedList *bitList)
     return result;
 }
 
-void swapBitLists(LinkedList *bitList1, LinkedList *bitList2, double pCroise)
-{
+void swapBitLists(LinkedList *bitList1, LinkedList *bitList2, double pCroise){
     if (bitList1->listLength != bitList2->listLength)
         return;
-    int probability = floor(pCroise * 100);
+    char probability = floor(pCroise * 100);
     for (unsigned long i = 0; i < bitList1->listLength; i++)
     {
-        int random = rand() % 101;
-        if (random <= probability)
+        char random = rand() % 101;
+        if (random <= probability && pCroise != 0)
         {
             void *temp = LinkedList_Get(bitList1, i);
             LinkedList_ChangeNodeValue(bitList1, LinkedList_Get(bitList2, i), i);
@@ -76,21 +74,31 @@ void swapBitLists(LinkedList *bitList1, LinkedList *bitList2, double pCroise)
     }
 }
 
+double formula(double a, double b, Individual* individual){
+    long quotient = 1<<individual->size;
+    long x = bitsToInt(individual->bitList);
+    double X = (x/quotient)*(b-a)+a;
+    return X;
+}
+
 double getIndividualQuality(Individual *individual)
 {
-    int longIndividual = individual->longIndiv;
-    int x = bitsToInt(individual->bitList);
-    double X = x / pow(2, longIndividual) * 2 - 1;
+    double X = formula(-1 ,1 ,individual);
     return ((-1) * pow(X, 2));
 }
 
-Individual *initIndividual(int longIndiv)
+double getIndividualQuality2(Individual* individual){
+    double X = formula(0.1f, 1.f, individual);
+    return -1*log(X);
+}
+
+Individual *initIndividual(short longIndiv)
 {
     Individual *individual = malloc(sizeof(Individual));
     if (!individual)
         return NULL;
     individual->bitList = createLinkedList();
-    individual->longIndiv = longIndiv;
+    individual->size = longIndiv;
     initBitListIterative(individual->bitList, longIndiv);
     return individual;
 }

@@ -74,7 +74,7 @@ void LinkedList_FreeRec(LinkedList* linkedlist, void(*freeElemFunc)(void*)){
     free(linkedlist);
 }
 
-void LinkedList_Free(LinkedList *linkedlist, void(*freeElemFunc)(void*))
+void LinkedList_Free(LinkedList *linkedlist, void(*freeElemFunc)(void*)) // ✓(Valgrind)
 {
     Node **tempList = malloc(sizeof(Node *) * linkedlist->listLength);
     Node *currentNode = linkedlist->start;

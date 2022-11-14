@@ -10,9 +10,9 @@ typedef struct Population
 } Population;
 
 void freePopulation(Population* population);
-void selectBestOfPopulation(Population* population, int tSelect);
+void selectBestOfPopulation(Population* population, short tSelect);
 void crossPopulation(Population* population, double pCroise);
 void printPop(Population* pop);
-Population* initPopulation(int populationSize, int individualSize);
+Population* initPopulation(short populationSize, short individualSize);
 
 #endif
