@@ -9,7 +9,7 @@ SRC_DIR=../src/
 INCLUDE_DIR=../include/
 BUILD_DIR=../build/
 
-$(EXECUTABLE): $(SRC_DIR)*.c $(INCLUDE_DIR)*.h create_build
+$(EXECUTABLE): $(SRC_DIR)*.c $(INCLUDE_DIR)*.h
 	gcc $(SRC_DIR)*.c -o $(BUILD_DIR)$(EXECUTABLE) $(FLAGS)
 
 run:

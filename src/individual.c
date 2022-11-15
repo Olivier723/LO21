@@ -75,15 +75,16 @@ void swapBitLists(LinkedList *bitList1, LinkedList *bitList2, double pCroise){
 }
 
 double formula(double a, double b, Individual* individual){
-    long quotient = 1<<individual->size;
+    long quotient = pow(2,individual->size);
     long x = bitsToInt(individual->bitList);
-    double X = (x/quotient)*(b-a)+a;
+    double X = (((double)x/(double)quotient)*(b-a)+a);
     return X;
 }
 
 double getIndividualQuality(Individual *individual)
 {
-    double X = formula(-1 ,1 ,individual);
+    double X = formula(-1.f ,1.f ,individual);
+    // printf("X:%f\n", X);
     return ((-1) * pow(X, 2));
 }
 

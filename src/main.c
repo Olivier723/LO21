@@ -7,9 +7,9 @@
 
 #define e_acc_aigu 130
 
-short tSelect, popSize, indivSize, nGen;
+short tSelect, popSize, indivSize, nGen, enableRecord;
 double pCroise;
-char enableRecord;
+
 
 void recordPopulationEvolution(FILE* file, Population* pop, int iteration){
     fprintf(file,"Iteration %i\n",iteration);
@@ -25,7 +25,7 @@ void recordPopulationEvolution(FILE* file, Population* pop, int iteration){
             fprintf(file,"->");
         }
         Bit *tempBit = currentNode->pointer;
-        fprintf(file,"%d\n\tvalue : %file\n\n", *tempBit, getIndividualQuality(indiv));
+        fprintf(file,"%d\n\tvalue : %f\n\n", *tempBit, getIndividualQuality(indiv));
     }
 
 }
@@ -62,10 +62,12 @@ void getValuesFromUser(){
         printf("Le nombre d'individus doit etre positif \n");
         scanf("%hi", &tSelect);
     }
-    do{
-        printf("Souhaitez vous activer l'enregistrement de l'évolution de la population ? [O/N]\n");
-        scanf("%c",&enableRecord);
-    }while(enableRecord != 'O' || enableRecord != 'N');
+    printf("Souhaitez vous activer l'enregistrement de l'evolution de la population ? [1/0]\n");
+    scanf("%hi",&enableRecord);
+    while(enableRecord != 1 && enableRecord != 0){
+        printf("Entrez un caractere valable [1/0]\n");
+        scanf("%hi",&enableRecord);
+    }
 }
 
 int main(){
@@ -73,16 +75,21 @@ int main(){
     getValuesFromUser();
     Population* pop = initPopulation(popSize, indivSize);
     assert(pop != NULL);
-    FILE* f = fopen("../Population_Records.txt","w");
-
+    FILE* f = NULL;
+    if(enableRecord){
+        f = fopen("../Population_Records.txt","w");
+    }
     for(short i = 0; i < nGen; i++){
-        recordPopulationEvolution(f,pop,i);
+        if(enableRecord){
+            recordPopulationEvolution(f,pop,i);
+        }
         crossPopulation(pop, pCroise);
         quickSort(pop->individuals,0,popSize-1);
         selectBestOfPopulation(pop, tSelect);
     }
-    
-    fclose(f);
-    freePopulation(pop);
+    if(enableRecord){
+        fclose(f);
+    }
+    // freePopulation(pop);
     return EXIT_SUCCESS;
 }
