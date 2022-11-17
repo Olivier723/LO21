@@ -4,6 +4,7 @@ Projet de LO21
 
 ## TODO(s) : 
 - Bug du free """réglé""" (j'ai créé de nouveau problèmes)
+- Check si les listes sont NULL dans le append et autre
 ### Lets go
         C is the best
           language
