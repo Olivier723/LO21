@@ -4,8 +4,6 @@
 
 Node *LinkedList_GetNode(LinkedList *linkedlist, unsigned long nodePos) // ✓
 {
-    if(linkedlist == NULL)
-        return NULL;
     if (nodePos >= linkedlist->listLength)
         return NULL;
     if (nodePos == linkedlist->listLength - 1)
