@@ -31,17 +31,11 @@ void recordPopulationEvolution(FILE *file, Population *pop, int iteration)
 
 int getValuesFromArgs(int argc, char** argv){
     const struct option options[] = {
-        { .name = "popSize", .has_arg = required_argument, .flag = 0, .val = 'P'},
-        { .name = "indivSize", .has_arg = required_argument, .flag = 0, .val = 'i' },
-        { .name = "nGen", .has_arg = required_argument, .flag = 0, .val = 'n' },
-        { .name = "pCroise", .has_arg = required_argument, .flag = 0, .val = 'p'},
-        { .name = "tSelect", .has_arg = required_argument, .flag = 0, .val = 't'},
-        { .name = "enableRecord", .has_arg = no_argument, .flag = 0, .val = 'r'}
+        { .name = "population", .has_arg = required_argument, .flag = 0, .val = 'P'}
     };
-    int isUsed = 0;
     int opt = 0;
     int long_index = 0;
-    while((opt = getopt_long(argc, argv, "P:i:n:p:t:r", options, &long_index)) != -1){
+    while((opt = getopt_long(argc, argv, "P:", options, &long_index)) != -1){
         switch (opt){
         case 0:
             printf("option %s", options[long_index].name);
@@ -52,45 +46,13 @@ int getValuesFromArgs(int argc, char** argv){
 
         case 'P':
             printf("option P with value '%s'\n", optarg);
-            popSize = atoi(optarg);
-            isUsed = 1;
-            break;
-
-        case 'i':
-            printf("option i with value '%s'\n", optarg);
-            indivSize = atoi(optarg);
-            isUsed = 1;
-            break;
-
-        case 'n':
-            printf("option n with value '%s'\n", optarg);
-            nGen = atoi(optarg);
-            isUsed = 1;
-            break;
-
-        case 'p':
-            printf("option p with value '%s'\n", optarg);
-            pCroise = atoi(optarg);
-            isUsed = 1;
-            break;
-
-        case 't':
-            printf("option t with value '%s'\n", optarg);
-            tSelect = atoi(optarg);
-            isUsed = 1;
-            break;
-
-        case 'r':
-            printf("option r\n");
-            enableRecord = 1;
-            isUsed = 1;
             break;
         
         default:
             printf("?? getopt returned character code 0%o ??\n", opt);
         }
     }
-    return isUsed;
+    return 0;
 }
 
 // Controls the inputs from the user
@@ -110,16 +72,16 @@ void getValuesFromUser()
         printf("La taille d'un individu doit etre positive \n");
         scanf("%hi", &indivSize);
     }
-    printf("Entrez le nombre d'iterations de l'algorithme :\n");
+    printf("Entrez le nombre d'it%crations de l'algorithme :\n",e_acc_aigu);
     scanf("%hi", &nGen);
     while(nGen < 0){
-        printf("Le nombre d'iterations doit etre positif \n");
+        printf("Le nombre d'it%crations doit etre positif \n",e_acc_aigu);
         scanf("%hi", &nGen);
     }
-    printf("Entrez une propabilite de croisement entre individus (entre 0 et 1):\n");
+    printf("Entrez une propabilit%c de croisement entre individus (entre 0 et 1):\n",e_acc_aigu);
     scanf("%lf", &pCroise);
     while(pCroise > 1 || pCroise < 0){
-        printf("La probabilite doit etre comprise entre 0 et 1 :\n");
+        printf("La probabilit%c doit etre comprise entre 0 et 1 :\n",e_acc_aigu);
         scanf("%lf", &pCroise);
     }
     printf("Entrez le nombre d'individus a garder pour la nouvelle gen : ");
@@ -140,13 +102,12 @@ void getValuesFromUser()
 
 int main(int argc, char **argv){
     srand(time(NULL));
-    if (!getValuesFromArgs(argc, argv)) getValuesFromUser();
-    Population *pop = initPopulation(popSize, indivSize);
+    getValuesFromUser();
+    Population* pop = initPopulation(popSize, indivSize);
     assert(pop != NULL);
-    FILE *f = NULL;
-    if (enableRecord)
-    {
-        f = fopen("../Population_Records.txt", "w");
+    FILE* f = NULL;
+    if(enableRecord){
+        f = fopen("../Population_Records.txt","w");
     }
     for (short i = 0; i < nGen; i++)
     {
@@ -155,13 +116,13 @@ int main(int argc, char **argv){
             recordPopulationEvolution(f, pop, i);
         }
         crossPopulation(pop, pCroise);
-        quickSort(pop->individuals, 0, popSize - 1);
+        quickSort(pop->individuals,0,popSize-1);
         selectBestOfPopulation(pop, tSelect);
     }
     if (enableRecord)
     {
         fclose(f);
     }
-    freePopulation(pop);
+    // freePopulation(pop);
     return EXIT_SUCCESS;
 }
