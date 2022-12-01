@@ -3,6 +3,7 @@
 #include "../external/getopt.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include <time.h>
 
 short tSelect, popSize, indivSize, nGen, enableRecord;
@@ -146,11 +147,6 @@ int main(int argc, char **argv){
     if (enableRecord)
     {
         f = fopen("../Population_Records.txt", "w");
-    }
-    for(short i = 0; i < nGen; i++){
-        if(enableRecord){
-            recordPopulationEvolution(f, pop, i);
-        }
     }
     for (short i = 0; i < nGen; i++)
     {

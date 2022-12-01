@@ -102,9 +102,15 @@ Individual *initIndividual(short longIndiv)
     return individual;
 }
 
+void* bitCopy(void* toCopy){
+    Bit* bit = malloc(sizeof(Bit));
+    *bit = *((Bit*)toCopy);
+    return bit;
+}
+
 Individual* copyIndividual(Individual* toCopy){
     Individual* individual = malloc(sizeof(Individual));
     individual->size = toCopy->size;
-    individual->bitList = LinkedList_Copy(toCopy->bitList);
+    individual->bitList = LinkedList_Copy(toCopy->bitList, bitCopy);
     return individual;
 }

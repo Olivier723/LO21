@@ -1,6 +1,7 @@
 #include "../include/linkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 Node *LinkedList_GetNode(LinkedList *linkedlist, unsigned long nodePos) // ✓
 {
@@ -166,11 +167,11 @@ void LinkedList_ToDynamic(LinkedList *linkedList, void **dynamicList)
     }
 }
 
-LinkedList* LinkedList_Copy(LinkedList* toCopy){
+LinkedList* LinkedList_Copy(LinkedList* toCopy, void*(*copyElemFunc)(void*)){
     if(toCopy == NULL) return toCopy;
     LinkedList* list = createLinkedList();
     for(unsigned long i = 0; i < toCopy->listLength; ++i){
-        LinkedList_Append(list, LinkedList_Get(toCopy, i));
+        LinkedList_Append(list, copyElemFunc(LinkedList_Get(toCopy, i)));
     }
     return list;
 }
