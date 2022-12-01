@@ -14,7 +14,7 @@ $(EXECUTABLE): $(SRC_DIR)*.c $(INCLUDE_DIR)*.h
 	gcc $(SRC_DIR)*.c $(EXTERNAL_DIR)*.c -o $(BUILD_DIR)$(EXECUTABLE) $(FLAGS)
 
 run:
-	$(BUILD_DIR)$(EXECUTABLE)
+	$(BUILD_DIR)$(EXECUTABLE) -P 8 -i 8 -n 10 -p 0.4 -t 4 -r
 
 create_build: clean
 	mkdir -p $(BUILD_DIR)

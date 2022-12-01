@@ -30,11 +30,17 @@ void recordPopulationEvolution(FILE *file, Population *pop, int iteration)
 
 int getValuesFromArgs(int argc, char** argv){
     const struct option options[] = {
-        { .name = "population", .has_arg = required_argument, .flag = 0, .val = 'P'}
+        { .name = "popSize", .has_arg = required_argument, .flag = 0, .val = 'P'},
+        { .name = "indivSize", .has_arg = required_argument, .flag = 0, .val = 'i' },
+        { .name = "nGen", .has_arg = required_argument, .flag = 0, .val = 'n' },
+        { .name = "pCroise", .has_arg = required_argument, .flag = 0, .val = 'p'},
+        { .name = "tSelect", .has_arg = required_argument, .flag = 0, .val = 't'},
+        { .name = "enableRecord", .has_arg = no_argument, .flag = 0, .val = 'r'}
     };
+    int isUsed = 0;
     int opt = 0;
     int long_index = 0;
-    while((opt = getopt_long(argc, argv, "P:", options, &long_index)) != -1){
+    while((opt = getopt_long(argc, argv, "P:i:n:p:t:r", options, &long_index)) != -1){
         switch (opt){
         case 0:
             printf("option %s", options[long_index].name);
@@ -45,13 +51,45 @@ int getValuesFromArgs(int argc, char** argv){
 
         case 'P':
             printf("option P with value '%s'\n", optarg);
+            popSize = atoi(optarg);
+            isUsed = 1;
+            break;
+
+        case 'i':
+            printf("option i with value '%s'\n", optarg);
+            indivSize = atoi(optarg);
+            isUsed = 1;
+            break;
+
+        case 'n':
+            printf("option n with value '%s'\n", optarg);
+            nGen = atoi(optarg);
+            isUsed = 1;
+            break;
+
+        case 'p':
+            printf("option p with value '%s'\n", optarg);
+            pCroise = atoi(optarg);
+            isUsed = 1;
+            break;
+
+        case 't':
+            printf("option t with value '%s'\n", optarg);
+            tSelect = atoi(optarg);
+            isUsed = 1;
+            break;
+
+        case 'r':
+            printf("option r\n");
+            enableRecord = 1;
+            isUsed = 1;
             break;
         
         default:
             printf("?? getopt returned character code 0%o ??\n", opt);
         }
     }
-    return 0;
+    return isUsed;
 }
 
 // Controls the inputs from the user
