@@ -6,14 +6,15 @@ endif
 
 FLAGS=-lm -W -Wall -Wextra -O3
 SRC_DIR=../src/
+EXTERNAL_DIR=../external/
 INCLUDE_DIR=../include/
 BUILD_DIR=../build/
 
 $(EXECUTABLE): $(SRC_DIR)*.c $(INCLUDE_DIR)*.h
-	gcc $(SRC_DIR)*.c -o $(BUILD_DIR)$(EXECUTABLE) $(FLAGS)
+	gcc $(SRC_DIR)*.c $(EXTERNAL_DIR)*.c -o $(BUILD_DIR)$(EXECUTABLE) $(FLAGS)
 
 run:
-	$(BUILD_DIR)LO21.exe
+	$(BUILD_DIR)$(EXECUTABLE)
 
 create_build: clean
 	mkdir -p $(BUILD_DIR)
