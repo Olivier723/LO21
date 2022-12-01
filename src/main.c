@@ -103,7 +103,9 @@ int main(int argc, char **argv){
     srand(time(NULL));
     if (!getValuesFromArgs(argc, argv)) getValuesFromUser();
     Population *pop = initPopulation(popSize, indivSize);
-    assert(pop != NULL);
+    if(pop == NULL){
+        return 1;
+    }
     FILE *f = NULL;
     if (enableRecord)
     {
