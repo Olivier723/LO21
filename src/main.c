@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include <assert.h>
-
-#define e_acc_aigu 130
 
 short tSelect, popSize, indivSize, nGen, enableRecord;
 double pCroise;
@@ -112,18 +109,16 @@ void getValuesFromUser()
         printf("La taille d'un individu doit etre positive \n");
         scanf("%hi", &indivSize);
     }
-    printf("Entrez le nombre d'it%crations de l'algorithme :\n", e_acc_aigu);
+    printf("Entrez le nombre d'iterations de l'algorithme :\n");
     scanf("%hi", &nGen);
-    while (nGen < 0)
-    {
-        printf("Le nombre d'it%crations doit etre positif \n", e_acc_aigu);
+    while(nGen < 0){
+        printf("Le nombre d'iterations doit etre positif \n");
         scanf("%hi", &nGen);
     }
-    printf("Entrez une propabilit%c de croisement entre individus (entre 0 et 1):\n", e_acc_aigu);
+    printf("Entrez une propabilite de croisement entre individus (entre 0 et 1):\n");
     scanf("%lf", &pCroise);
-    while (pCroise > 1 || pCroise < 0)
-    {
-        printf("La probabilit%c doit etre comprise entre 0 et 1 :\n", e_acc_aigu);
+    while(pCroise > 1 || pCroise < 0){
+        printf("La probabilite doit etre comprise entre 0 et 1 :\n");
         scanf("%lf", &pCroise);
     }
     printf("Entrez le nombre d'individus a garder pour la nouvelle gen : ");
@@ -151,6 +146,11 @@ int main(int argc, char **argv){
     if (enableRecord)
     {
         f = fopen("../Population_Records.txt", "w");
+    }
+    for(short i = 0; i < nGen; i++){
+        if(enableRecord){
+            recordPopulationEvolution(f, pop, i);
+        }
     }
     for (short i = 0; i < nGen; i++)
     {
