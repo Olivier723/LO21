@@ -19,8 +19,6 @@ void printIndividual(Individual *individual)
 void freeIndividual(void *individual)
 {
     Individual* indiv = individual;
-    // LinkedList_Print(indiv->bitList, printBit);
-    // printf("Hi\n");
     LinkedList_Free(indiv->bitList,free);
     free(indiv);
 }
