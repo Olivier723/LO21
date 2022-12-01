@@ -19,8 +19,8 @@ void printIndividual(Individual *individual)
 void freeIndividual(void *individual)
 {
     Individual* indiv = individual;
-    LinkedList_Print(indiv->bitList, printBit);
-    printf("Hi\n");
+    // LinkedList_Print(indiv->bitList, printBit);
+    // printf("Hi\n");
     LinkedList_Free(indiv->bitList,free);
     free(indiv);
 }
@@ -101,5 +101,12 @@ Individual *initIndividual(short longIndiv)
     individual->bitList = createLinkedList();
     individual->size = longIndiv;
     initBitListIterative(individual->bitList, longIndiv);
+    return individual;
+}
+
+Individual* copyIndividual(Individual* toCopy){
+    Individual* individual = malloc(sizeof(Individual));
+    individual->size = toCopy->size;
+    individual->bitList = LinkedList_Copy(toCopy->bitList);
     return individual;
 }

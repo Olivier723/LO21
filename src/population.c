@@ -18,15 +18,11 @@ void freePopulation(Population* population){
 }
 
 void selectBestOfPopulation(Population* population, short tSelect){
-    Individual** tempList = malloc(sizeof(Individual*)*tSelect);
-    for(short i = 0; i < tSelect; i++){
-        tempList[i] = (Individual*)LinkedList_Get(population->individuals, i); 
+    for(int i = tSelect; i < population->size; ++i){
+        int j = i % 4;
+        freeIndividual(LinkedList_Get(population->individuals, i));
+        LinkedList_ChangeNodeValue(population->individuals, copyIndividual(LinkedList_Get(population->individuals, j)), i);
     }
-    for(short j = 0; j < population->size; j++){
-        short k = j % 4;
-        LinkedList_ChangeNodeValue(population->individuals, tempList[k], j);
-    }
-    free(tempList);
 }
 
 void crossPopulation(Population* population, double pCroise){

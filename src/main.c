@@ -33,7 +33,7 @@ void recordPopulationEvolution(FILE *file, Population *pop, int iteration)
 
 int getValuesFromArgs(int argc, char** argv){
     const struct option options[] = {
-        { .name = "population", .has_arg = required_argument, .flag = 0, .val = "P"}
+        { .name = "population", .has_arg = required_argument, .flag = 0, .val = 'P'}
     };
     int opt = 0;
     int long_index = 0;
@@ -128,6 +128,6 @@ int main(int argc, char **argv){
     {
         fclose(f);
     }
-    // freePopulation(pop);
+    freePopulation(pop);
     return EXIT_SUCCESS;
 }

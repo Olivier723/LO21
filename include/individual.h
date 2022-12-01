@@ -21,6 +21,8 @@ void printIndividual(Individual *individual);
 
 Individual* initIndividual(short longIndiv);
 
+Individual* copyIndividual(Individual* toCopy);
+
 double getIndividualQuality(Individual* individual);
 
 void freeIndividual(void* individual);

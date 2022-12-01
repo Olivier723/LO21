@@ -4,7 +4,7 @@
 
 Node *LinkedList_GetNode(LinkedList *linkedlist, unsigned long nodePos) // ✓
 {
-    if (nodePos >= linkedlist->listLength)
+    if (nodePos >= linkedlist->listLength) // Attention linkedlist = NULL
         return NULL;
     if (nodePos == linkedlist->listLength - 1)
         return linkedlist->end;
@@ -34,7 +34,7 @@ void LinkedList_Swap(LinkedList *linkedlist, unsigned long pos1, unsigned long p
 
 void LinkedList_ChangeNodeValue(LinkedList *linkedlist, void *item, unsigned long index) // ✓
 {
-    if(index >= linkedlist->listLength) return;
+    if(index >= linkedlist->listLength) return; // Attention linkedlist = NULL
     Node *tempNode = LinkedList_GetNode(linkedlist, index);
     tempNode->pointer = item;
 }
@@ -54,9 +54,11 @@ void LinkedList_Print(LinkedList *linkedlist, void (*printFunc)(void *)) // ✓
     printf("\n");
 }
 
-int LinkedList_isEmpty(LinkedList *linkedlist) // ✓
+int LinkedList_isEmpty(LinkedList *linkedlist)
 {
-    return linkedlist->start == NULL;
+    if(linkedlist == NULL) return 1;
+    if(linkedlist->start == NULL) return 1;
+    return 0;
 }
 
 void LinkedList_FreeRecNode(void(*freeElemFunc)(void *), Node* nodeToFree){
@@ -160,6 +162,15 @@ void LinkedList_ToDynamic(LinkedList *linkedList, void **dynamicList)
     {
         dynamicList[i] = LinkedList_Get(linkedList, i);
     }
+}
+
+LinkedList* LinkedList_Copy(LinkedList* toCopy){
+    if(toCopy == NULL) return toCopy;
+    LinkedList* list = createLinkedList();
+    for(unsigned long i = 0; i < toCopy->listLength; ++i){
+        LinkedList_Append(list, LinkedList_Get(toCopy, i));
+    }
+    return list;
 }
 
 LinkedList *createLinkedList() // ✓

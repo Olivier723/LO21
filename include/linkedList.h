@@ -44,6 +44,8 @@ void LinkedList_Append(LinkedList* linkedlist, void* Elem);
 //Gets the value stored in the node at index
 void* LinkedList_Get(LinkedList* linkedlist, unsigned long index);
 
+LinkedList* LinkedList_Copy(LinkedList* toCopy);
+
 LinkedList* createLinkedList();
 
 #endif
