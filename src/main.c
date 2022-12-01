@@ -3,9 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include <assert.h>
-
-#define e_acc_aigu 130
 
 short tSelect, popSize, indivSize, nGen, enableRecord;
 double pCroise;
@@ -44,16 +41,16 @@ void getValuesFromUser(){
         printf("La taille d'un individu doit etre positive \n");
         scanf("%hi", &indivSize);
     }
-    printf("Entrez le nombre d'it%crations de l'algorithme :\n",e_acc_aigu);
+    printf("Entrez le nombre d'iterations de l'algorithme :\n");
     scanf("%hi", &nGen);
     while(nGen < 0){
-        printf("Le nombre d'it%crations doit etre positif \n",e_acc_aigu);
+        printf("Le nombre d'iterations doit etre positif \n");
         scanf("%hi", &nGen);
     }
-    printf("Entrez une propabilit%c de croisement entre individus (entre 0 et 1):\n",e_acc_aigu);
+    printf("Entrez une propabilite de croisement entre individus (entre 0 et 1):\n");
     scanf("%lf", &pCroise);
     while(pCroise > 1 || pCroise < 0){
-        printf("La probabilit%c doit etre comprise entre 0 et 1 :\n",e_acc_aigu);
+        printf("La probabilite doit etre comprise entre 0 et 1 :\n");
         scanf("%lf", &pCroise);
     }
     printf("Entrez le nombre d'individus a garder pour la nouvelle gen : ");
@@ -74,22 +71,26 @@ int main(){
     srand(time(NULL));
     getValuesFromUser();
     Population* pop = initPopulation(popSize, indivSize);
-    assert(pop != NULL);
+    if(pop == NULL){
+        return 1;
+    }
     FILE* f = NULL;
     if(enableRecord){
-        f = fopen("../Population_Records.txt","w");
+        if((f = fopen("../Population_Records.txt","w")) == NULL){
+            return 1;
+        }
     }
     for(short i = 0; i < nGen; i++){
         if(enableRecord){
-            recordPopulationEvolution(f,pop,i);
+            recordPopulationEvolution(f, pop, i);
         }
         crossPopulation(pop, pCroise);
-        quickSort(pop->individuals,0,popSize-1);
+        quickSort(pop->individuals, 0, popSize-1);
         selectBestOfPopulation(pop, tSelect);
     }
     if(enableRecord){
         fclose(f);
     }
-    // freePopulation(pop);
+    freePopulation(pop);
     return EXIT_SUCCESS;
 }

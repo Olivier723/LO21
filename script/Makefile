@@ -13,7 +13,7 @@ $(EXECUTABLE): $(SRC_DIR)*.c $(INCLUDE_DIR)*.h
 	gcc $(SRC_DIR)*.c -o $(BUILD_DIR)$(EXECUTABLE) $(FLAGS)
 
 run:
-	$(BUILD_DIR)LO21.exe
+	$(BUILD_DIR)LO21
 
 create_build: clean
 	mkdir -p $(BUILD_DIR)
