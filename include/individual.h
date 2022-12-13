@@ -11,9 +11,6 @@ typedef struct Individual
     int size;
 } Individual;
 
-/*
-@param pCroise a probability between 0 and 1
-*/
 
 void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise);
 

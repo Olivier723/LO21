@@ -15,7 +15,6 @@ void printIndividual(Individual *individual)
     printf("value : %f\n", getIndividualQuality(individual));
 }
 
-//Uh Oh there seem to be a problem with bitList
 void freeIndividual(void *individual)
 {
     Individual* indiv = individual;
@@ -82,7 +81,6 @@ double formula(double a, double b, Individual* individual){
 double getIndividualQuality(Individual *individual)
 {
     double X = formula(-1.f ,1.f ,individual);
-    // printf("X:%f\n", X);
     return ((-1) * pow(X, 2));
 }
 
