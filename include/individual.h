@@ -11,9 +11,6 @@ typedef struct Individual
     int size;
 } Individual;
 
-/*
-@param pCroise a probability between 0 and 1
-*/
 
 void swapBitLists(LinkedList* bitList1, LinkedList* bitList2, double pCroise);
 
@@ -23,7 +20,12 @@ Individual* initIndividual(short longIndiv);
 
 Individual* copyIndividual(Individual* toCopy);
 
+/**
+ * @brief Returns the quality index associatied with the individual by using one the two formulas
+ */
 double getIndividualQuality(Individual* individual);
+
+double getIndividualQuality2(Individual* individual);
 
 void freeIndividual(void* individual);
 

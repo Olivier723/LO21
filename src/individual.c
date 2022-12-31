@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <math.h>
 
+#define FORMULA 1
+
 void printBit(void *bit)
 {
     Bit *tempBit = bit;
@@ -15,7 +17,6 @@ void printIndividual(Individual *individual)
     printf("value : %f\n", getIndividualQuality(individual));
 }
 
-//Uh Oh there seem to be a problem with bitList
 void freeIndividual(void *individual)
 {
     Individual* indiv = individual;
@@ -82,20 +83,18 @@ double formula(double a, double b, Individual* individual){
 double getIndividualQuality(Individual *individual)
 {
     double X = formula(-1.f ,1.f ,individual);
-    // printf("X:%f\n", X);
     return ((-1) * pow(X, 2));
 }
 
 double getIndividualQuality2(Individual* individual){
-    double X = formula(0.1f, 1.f, individual);
+    double X = formula(0.1f, 5.f, individual);
     return -1*log(X);
 }
 
 Individual *initIndividual(short longIndiv)
 {
     Individual *individual = malloc(sizeof(Individual));
-    if (!individual)
-        return NULL;
+    if (!individual) return NULL;
     individual->bitList = createLinkedList();
     individual->size = longIndiv;
     initBitListIterative(individual->bitList, longIndiv);
