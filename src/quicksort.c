@@ -5,12 +5,12 @@
 int partition(LinkedList *list, int start, int end)
 {
     Individual *pivotIndiv = LinkedList_Get(list, end);
-    double pivot = getIndividualQuality(pivotIndiv);
+    double pivot = getIndividualQuality2(pivotIndiv);
     int pivotIndex = start;
     for (int i = start; i < end; i++)
     {
         Individual *tempIndiv = LinkedList_Get(list, i);
-        if (getIndividualQuality(tempIndiv) > pivot)
+        if (getIndividualQuality2(tempIndiv) > pivot)
         {
             LinkedList_Swap(list, i, pivotIndex);
             pivotIndex++;

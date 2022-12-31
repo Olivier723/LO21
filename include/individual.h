@@ -27,6 +27,8 @@ double getIndividualQuality(Individual* individual);
 
 double getIndividualQuality2(Individual* individual);
 
+long bitsToInt(LinkedList *bitList);
+
 void freeIndividual(void* individual);
 
 #endif

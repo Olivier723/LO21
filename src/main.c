@@ -28,7 +28,8 @@ void recordPopulationEvolution(FILE *file, Population *pop, int iteration)
             fprintf(file, "->");
         }
         Bit *tempBit = currentNode->pointer;
-        fprintf(file, "%d\n\tvalue : %f\n\n", *tempBit, getIndividualQuality(indiv));
+        fprintf(file, "%d\n\tquality : %f\n", *tempBit, getIndividualQuality2(indiv));
+        fprintf(file, "\tvalue : %lu\n\n", bitsToInt(indiv->bitList));
     }
 }
 
