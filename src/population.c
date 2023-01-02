@@ -19,7 +19,7 @@ void freePopulation(Population* population){
 
 void selectBestOfPopulation(Population* population, short tSelect){
     for(int i = tSelect; i < population->size; ++i){
-        int j = i % 4;
+        int j = i % tSelect;
         freeIndividual(LinkedList_Get(population->individuals, i));
         LinkedList_ChangeNodeValue(population->individuals, copyIndividual(LinkedList_Get(population->individuals, j)), i);
     }
