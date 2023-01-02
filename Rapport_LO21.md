@@ -135,7 +135,7 @@ choisirMeilleursIndividus(P : **Population**, tSelect : **entier**) $\to$ P
 &emsp;&emsp;Indiv = RécupererElem(P, mod(i, tSelect))  
 &emsp;&emsp;RécupererElem(P, mod(i, tSelect)) = RécupererElem(P, i)  
 &emsp;&emsp;RécupererElem(P, i) = Indiv  
-&emsp;fin **pour**
+&emsp;fin **pour**  
 &emsp;choisirMeilleursIndividus(P, tSelect) = P  
 
 ---
@@ -249,10 +249,10 @@ valeur(I : **Individu**) $\to$ valeur
 | $Q_1$ | 8 | 0,5 | 200 | 4 | 20 | 126-128 |
 | $Q_1$ | 8 | 0,5 | 20 | 4 | 200 | 120-130 |
 | $Q_1$ | 8 | 0,5 | 200 | 150 | 200 | 127-129 |
-| $Q_1$ | 8 | 0,4 | 200 | 10 | 20 | 128 |
-| $Q_2$ | 8 | 0,4 | 20 | 10 | 20 | 0-10 |
-| $Q_2$ | 8 | 0,9 | 20 | 10 | 20 | 0-30 |
-| $Q_2$ | 8 | 0,4 | 200 | 10 | 20 | 0 |
+| $Q_1$ | 8 | 0,5 | 200 | 10 | 20 | 128 |
+| $Q_2$ | 16 | 0.5 | 20 | 2 | 20 | 0-7000 |
+| $Q_2$ | 16 | 0,5 | 20 | 10 | 20 | 0-1500 |
+| $Q_2$ | 16 | 0,5 | 200 | 100 | 20 | 0 |
 
 ---
 ## Commentaires sur les résultats :
@@ -266,11 +266,17 @@ valeur(I : **Individu**) $\to$ valeur
 
 ### Résultats de la fonction Qualité 2 :
 
-### Analyse générale :
+&emsp;L'influence des paramètres est la globalement la même que la première fonction. Mais on peut tout de même remarquer que lorsque tSelect est faible, la divergence entre la valeur des individus et la valeur optimale est beaucoup plus importante que pour la première fonction.  
+
+### Analyse mathématique :
 &emsp;On peut voir que la valeur des individus tend vers 128 en utilisant la premiere fonction pour calculer la qualité.  Ceci est dû au fait que lorsque la longueur d'un individu est de 8 la fonction qualité devient : $Q_1(x) = -(\frac{x}{128}-1)^2$ ou x représente la valeur d'un individu. Si on graphe cette équation, on obtient la courbe représentée si-dessous courbe avec le maximum en $x = 128$ et $y = 0$. ![courbe_qualité1](image-qualité1.png)(Logiciel utilisé : Desmos en ligne)  
   
-&emsp;Lorsque l'on utilise la seconde formule, on peut remarquer que la valeur d'un individu tends vers 0, cela est dû au fait que la deuxième équation de la qualité se maximise pour une qualité négative, or cela est impossible étant donné que la qualité est forcément positive. De plus, si on observe l'équation : $Q_2(x) = -\ln{(\frac{x}{2^{16}}*4.9+0.1)}$ on remarque qu'en zéro elle vaut $-\ln{(0.1)}$, de plus puisqu'elle est décroissante, comme le montre le graphe si dessous, on peut en déduire que la valeur maximale admise par cette fonction sur l'intervalle $\Reals^{+}$ est donc $-\ln{(0.1)}$.
+&emsp;Lorsque l'on utilise la seconde formule, on peut remarquer que la valeur d'un individu tends vers 0, cela est dû au fait que la deuxième équation de la qualité se maximise pour une qualité négative, or cela est impossible étant donné que la qualité est forcément positive. De plus, si on observe l'équation : $Q_2(x) = -\ln{(\frac{x}{2^{16}}*4.9+0.1)}$ on remarque qu'en zéro elle vaut $-\ln{(0.1)}$, de plus puisqu'elle est décroissante, comme le montre le graphe si dessous, on peut en déduire que la valeur maximale admise par cette fonction sur l'intervalle $\N^{+}$ est donc $-\ln{(0.1)}$.
 ![courbe-qualité2](image-qualité2.png)(Logiciel utilisé : Desmos en ligne)
 
 ### Dans les deux cas
-Nous avons trouvé en effectuant des test une configuration relativement stable. 
+
+&emsp;Pour faire un parallèle avec l'intelligence artificielle, la Taille de la population représente la stabilité de la réponse, cela signifie que plus la taille est grande, plus la valeur finale sera proche de la valeur idéale. C'est dû au fait que la taille de la population représente la diversité génétique de la population et qu'avec une plus grande diversité le croisement entre individus est plus intéressant car les individus sont plus différents les uns des autres.  
+&emsp;tSelect représente le taux de sélection des meilleurs individus, un tSelect très faible sélectionne dès la première génération les meilleurs mais laisse peu de temps à la population pour se reproduire. Le résultat est donc une population avec très peu d'évolution. À contrario, un tSelect grand laisse plus de temps aux individus pour se reproduire et donc laisse plus de chances pour atteindre leur valeur maximum mais prends plus de temps pour atteindre l'homogénéité.
+
+&emsp;Nous avons trouvé en effectuant des tests une configuration relativement stable. Cette configuration à l'avantage de vite converger vers la reponse la plus optimale sans prendre trop de resources. Il est sûrement possible de trouver une configuration qui donnerait de meilleurs résultats tout en utilisant le moins de ressources possible. Pour cela on pourrait utiliser un autre programme qui utilise le fichier de sortie et qui utilise également un système générationnel afin de converger vers la configuration "ultime".

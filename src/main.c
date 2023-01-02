@@ -5,10 +5,10 @@
 #include <assert.h>
 #include <time.h>
 
-#define POPSIZE 200
-#define TSELECT 150
-#define INDIVSIZE 8
-#define NGEN 200
+#define POPSIZE 20
+#define TSELECT 10
+#define INDIVSIZE 16
+#define NGEN 20
 #define RECORD 1
 #define PCROISE 0.4f
 
@@ -28,7 +28,7 @@ void recordPopulationEvolution(FILE *file, Population *pop, int iteration)
             fprintf(file, "->");
         }
         Bit *tempBit = currentNode->pointer;
-        fprintf(file, "%d\n\tquality : %f\n", *tempBit, getIndividualQuality(indiv));
+        fprintf(file, "%d\n\tquality : %f\n", *tempBit, getIndividualQuality2(indiv));
         fprintf(file, "\tvalue : %lu\n\n", bitsToInt(indiv->bitList));
     }
 }
