@@ -253,6 +253,7 @@ valeur(I : **Individu**) $\to$ valeur
 | $Q_2$ | 16 | 0.5 | 20 | 2 | 20 | 0-7000 |
 | $Q_2$ | 16 | 0,5 | 20 | 10 | 20 | 0-1500 |
 | $Q_2$ | 16 | 0,5 | 200 | 100 | 20 | 0 |
+| $Q_2$ | 16 | 0,5 | 200 | 10 | 200 | 0 |
 
 ---
 ## Commentaires sur les résultats :
@@ -266,7 +267,7 @@ valeur(I : **Individu**) $\to$ valeur
 
 ### Résultats de la fonction Qualité 2 :
 
-&emsp;L'influence des paramètres est la globalement la même que la première fonction. Mais on peut tout de même remarquer que lorsque tSelect est faible, la divergence entre la valeur des individus et la valeur optimale est beaucoup plus importante que pour la première fonction.  
+&emsp;L'influence des paramètres est la globalement la même que la première fonction. Mais on peut tout de même remarquer que lorsque tSelect est faible, la divergence entre la valeur des individus et la valeur optimale est beaucoup plus importante que pour la première fonction.
 
 ### Analyse mathématique :
 &emsp;On peut voir que la valeur des individus tend vers 128 en utilisant la premiere fonction pour calculer la qualité.  Ceci est dû au fait que lorsque la longueur d'un individu est de 8 la fonction qualité devient : $Q_1(x) = -(\frac{x}{128}-1)^2$ ou x représente la valeur d'un individu. Si on graphe cette équation, on obtient la courbe représentée si-dessous courbe avec le maximum en $x = 128$ et $y = 0$. ![courbe_qualité1](image-qualité1.png)(Logiciel utilisé : Desmos en ligne)  

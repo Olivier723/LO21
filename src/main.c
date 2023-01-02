@@ -5,10 +5,10 @@
 #include <assert.h>
 #include <time.h>
 
-#define POPSIZE 20
+#define POPSIZE 200
 #define TSELECT 10
 #define INDIVSIZE 16
-#define NGEN 20
+#define NGEN 200
 #define RECORD 1
 #define PCROISE 0.4f
 
