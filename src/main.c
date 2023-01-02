@@ -10,7 +10,7 @@
 #define INDIVSIZE 16
 #define NGEN 200
 #define RECORD 1
-#define PCROISE 0.4f
+#define PCROISE 0.5f
 
 void recordPopulationEvolution(FILE *file, Population *pop, int iteration)
 {
@@ -28,7 +28,7 @@ void recordPopulationEvolution(FILE *file, Population *pop, int iteration)
             fprintf(file, "->");
         }
         Bit *tempBit = currentNode->pointer;
-        fprintf(file, "%d\n\tquality : %f\n", *tempBit, getIndividualQuality2(indiv));
+        fprintf(file, "%d\n\tquality : %f\n", *tempBit, getIndividualQuality(indiv));
         fprintf(file, "\tvalue : %lu\n\n", bitsToInt(indiv->bitList));
     }
 }

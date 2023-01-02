@@ -82,13 +82,13 @@ double formula(double a, double b, Individual* individual){
 
 double getIndividualQuality(Individual *individual)
 {
-    double X = formula(-1.f ,1.f ,individual);
-    return ((-1) * pow(X, 2));
-}
-
-double getIndividualQuality2(Individual* individual){
-    double X = formula(0.1f, 5.f, individual);
-    return -1*log(X);
+    if(FORMULA){
+        double X = formula(0.1f, 5.f, individual);
+        return -1*log(X);
+    }else{
+        double X = formula(-1.f ,1.f ,individual);
+        return ((-1) * pow(X, 2));
+    }
 }
 
 Individual *initIndividual(short longIndiv)
