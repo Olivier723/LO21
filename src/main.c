@@ -6,9 +6,9 @@
 #include <time.h>
 
 #define POPSIZE 20
-#define TSELECT 1
+#define TSELECT 10
 #define INDIVSIZE 16
-#define NGEN 10
+#define NGEN 20
 #define RECORD 1
 #define PCROISE 0.5f
 
